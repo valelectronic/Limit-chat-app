@@ -102,24 +102,23 @@ export const getNextAccessTime = async (req, res) => {
   }
 };
  
-
 export const deleteTodayTask = async (req, res) => {
   try {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const deletedTasks = await Schedule.deleteMany({
+    const deleted = await Schedule.deleteMany({
       userId: req.user._id,
       date: today,
     });
 
-    if (deletedTasks.deletedCount === 0) {
-      return res.status(404).json({ message: "No tasks found for today" });
+    if (deleted.deletedCount === 0) {
+      return res.status(404).json({ error: "No tasks found for today" });
     }
 
-    res.status(200).json({ message: "Today's tasks deleted successfully" });
+    res.status(200).json({ message: "Today's tasks deleted" });
   } catch (err) {
-    console.error("Error deleting today's tasks:", err);
+    console.error("Failed to delete today's tasks:", err);
     res.status(500).json({ error: "Could not delete today's tasks" });
   }
-};
+}

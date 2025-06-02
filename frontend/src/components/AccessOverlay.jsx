@@ -115,7 +115,7 @@ const ChatAccessOverlay = () => {
   const handleConfirmReset = async () => {
     try {
       await clearTodayTasks();
-      toast.success("Today's schedule cleared!");
+      toast.success("Today's schedule has been reset!");
       navigate("/schedule");
     } catch (err) {
       console.error(err);

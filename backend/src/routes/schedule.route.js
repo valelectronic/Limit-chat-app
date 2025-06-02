@@ -11,11 +11,11 @@ import {
 const router = express.Router();
 
 router.post("/", protectRoute, createTask);
-router.get("/today", protectRoute, getTasksForToday);
+router.get("/todayTask", protectRoute, getTasksForToday);
+router.get("/today", protectRoute, getTasksForToday); // alias for todayTask
 router.get("/next-access", protectRoute, getNextAccessTime);
+router.delete("/today", protectRoute, deleteTodayTask);
 router.delete("/:taskId", protectRoute, deleteTask);
 
-// Merged route for deleting today's task
-router.delete("/today", protectRoute, deleteTodayTask);
 
 export default router;

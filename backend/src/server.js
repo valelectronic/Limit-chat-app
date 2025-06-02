@@ -8,8 +8,8 @@ import cors from 'cors';
 import scheduleRoutes from './routes/schedule.route.js';
 import deleteChatRoutes from "../src/routes/deleteChat.route.js";
 import { app, server } from "./lib/socket.js";
-import deleteTodayTaskRoutes from "../src/routes/deleteTodayTask.route.js";
-import { deleteTodayTask } from './controllers/deleteTodayTask.controller.js';
+
+
 import path from 'path';
 import { fileURLToPath } from 'url'; // <-- import here
 
@@ -34,10 +34,9 @@ app.use(cors({
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/deleteChat", deleteChatRoutes);
-app.use("/api/deleteTodayTask", deleteTodayTaskRoutes);
 app.use("/api/tasks", scheduleRoutes);
 
-app.use("/api/schedule", scheduleRoutes);
+;
 
 if (process.env.NODE_ENV === 'production') {
   // Serve React build static files
