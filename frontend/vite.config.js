@@ -11,7 +11,7 @@ export default {
   },
   plugins: [react()],
   build: {
-    outDir: 'dist', // This outputs to frontend/dist
+    outDir: 'dist', 
     emptyOutDir: true,
   }
 }
