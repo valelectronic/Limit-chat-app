@@ -29,11 +29,12 @@ app.use(cors({
   credentials: true,
 }));
 
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/deleteChat", deleteChatRoutes);
-app.use("/api/schedule", deleteTodayTaskRoutes);
+app.use("/api/deleteTodayTask", deleteTodayTaskRoutes);
 app.use("/api/tasks", scheduleRoutes);
 
 app.use("/api/schedule", scheduleRoutes);
