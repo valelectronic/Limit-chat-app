@@ -6,50 +6,49 @@ import cookieParser from 'cookie-parser';
 import messageRoutes from './routes/message.route.js';
 import cors from 'cors';
 import scheduleRoutes from './routes/schedule.route.js';
-import deleteChatRoutes from "../src/routes/deleteChat.route.js"
-import {app,server } from "./lib/socket.js"
-import deleteTodayTaskRoutes from "../src/routes/deleteTodayTask.route.js"
+import deleteChatRoutes from "../src/routes/deleteChat.route.js";
+import { app, server } from "./lib/socket.js";
+import deleteTodayTaskRoutes from "../src/routes/deleteTodayTask.route.js";
 
 import path from 'path';
+import { fileURLToPath } from 'url'; // <-- import here
 
 dotenv.config();
 
+// ES module fix for __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware to parse JSON requests
-//this will allow us to get requests from the  body of the input 
 app.use(express.json());
-//used for allowing to pass the cookie from the database or any place and use it 
-app.use(cookieParser()) 
-// Middleware to enable CORS
+// cookie parser
+app.use(cookieParser());
+// cors
 app.use(cors({
-  origin: "http://localhost:5173", // Allow requests from this origin
-  credentials: true, // Allow cookies to be sent with requests
+  origin: "http://localhost:5173",
+  credentials: true,
 }));
 
-//routes
-app.use("/api/auth",authRoutes);
-app.use("/api/messages",messageRoutes);
-app.use("/api/deleteChat",deleteChatRoutes)
-app.use("/api/schedule",deleteTodayTaskRoutes)
-// for time management
-app.use("/api/tasks",scheduleRoutes)
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/deleteChat", deleteChatRoutes);
+app.use("/api/schedule", deleteTodayTaskRoutes);
+app.use("/api/tasks", scheduleRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the React app
+  // Serve React build static files
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-  // Handle any requests that don't match the above routes
+  // Handle SPA routing, return index.html
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
   });
 }
 
 const PORT = process.env.PORT || 5001;
 
-
-const __dirname = path.resolve();
-
 server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost port ${PORT}`);
-  connectDB()
-})
+  console.log(`Server is running on http://localhost:${PORT}`);
+  connectDB();
+});
