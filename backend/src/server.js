@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import messageRoutes from './routes/message.route.js';
 import cors from 'cors';
 import scheduleRoutes from './routes/schedule.route.js';
-import deleteChatRoutes from "../src/routes/deleteChat.route.js";
+import deleteChatRoutes from "./routes/deleteChat.route.js";
 import { app, server } from "./lib/socket.js";
 
 
