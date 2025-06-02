@@ -35,8 +35,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/deleteChat", deleteChatRoutes);
 app.use("/api/tasks", scheduleRoutes);
-
-;
+// Serve static files from the React app
 
 if (process.env.NODE_ENV === 'production') {
   // Serve React build static files
