@@ -35,14 +35,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/deleteChat", deleteChatRoutes);
 app.use("/api/tasks", scheduleRoutes);
-// Serve static files from the React app
+
 
 if (process.env.NODE_ENV === 'production') {
   // Serve React build static files
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
   // Handle SPA routing, return index.html
-  app.get('*', (req, res) => {
+  app.get(/'*'/, (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
   });
 }
