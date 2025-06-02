@@ -14,6 +14,24 @@ import path from 'path';
 import { fileURLToPath } from 'url'; // <-- import here
 
 dotenv.config();
+function printRoutes(app) {
+  console.log("Registered routes:");
+  app._router.stack.forEach((middleware) => {
+    if (middleware.route) {
+      // Routes registered directly on the app
+      console.log(`${Object.keys(middleware.route.methods).join(', ').toUpperCase()} ${middleware.route.path}`);
+    } else if (middleware.name === 'router' && middleware.handle.stack) {
+      // Router middleware
+      middleware.handle.stack.forEach((handler) => {
+        const route = handler.route;
+        if (route) {
+          console.log(`${Object.keys(route.methods).join(', ').toUpperCase()} ${route.path}`);
+        }
+      });
+    }
+  });
+}
+
 
 // ES module fix for __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -47,6 +65,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 5001;
+printRoutes(app);
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
