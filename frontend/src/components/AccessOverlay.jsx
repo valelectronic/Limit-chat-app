@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const ChatAccessOverlay = () => {
   const location = useLocation();
-  const publicRoutes = ["/login", "/register"];
+  const publicRoutes = ["/login", "/signup"];
 
   // Skip overlay on public routes (allow access freely)
   if (publicRoutes.includes(location.pathname)) {
@@ -23,11 +23,18 @@ const ChatAccessOverlay = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!tasks || tasks.length === 0) {
-      navigate("/schedule");
-    }
-  }, [tasks, navigate]);
+ useEffect(() => {
+  const publicRoutes = ["/login", "/signup"];
+  if (publicRoutes.includes(location.pathname)) return;
+
+
+
+if (!tasks || tasks.length === 0) {
+  navigate("/schedule");
+}
+
+}, [tasks, navigate, location.pathname]);
+
 
   useEffect(() => {
     const checkChatTime = () => {
